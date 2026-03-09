@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: hsl(230 15% 5%);
+  --color-foreground: hsl(220 15% 90%);
+
+  --color-card: hsl(230 14% 8%);
+  --color-card-foreground: hsl(220 15% 90%);
+
+  --color-popover: hsl(230 14% 8%);
+  --color-popover-foreground: hsl(220 15% 90%);
+
+  --color-primary: hsl(358 82% 51%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: hsl(230 12% 12%);
+  --color-secondary-foreground: hsl(220 10% 70%);
+
+  --color-muted: hsl(230 10% 10%);
+  --color-muted-foreground: hsl(220 8% 42%);
+
+  --color-accent: hsl(358 82% 51%);
+  --color-accent-foreground: hsl(0 0% 100%);
+
+  --color-destructive: hsl(0 72% 55%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(230 12% 13%);
+  --color-input: hsl(230 12% 13%);
+  --color-ring: hsl(358 82% 51%);
+
+  --radius-xl: 0.75rem;
+
+  /* Neon tokens */
+  --color-neon-blue: hsl(210 100% 56%);
+  --color-neon-purple: hsl(270 75% 60%);
+  --color-neon-cyan: hsl(185 90% 50%);
+  --color-neon-green: hsl(155 75% 45%);
+  --color-neon-orange: hsl(25 95% 55%);
+  --color-neon-red: hsl(358 82% 51%);
+  --color-neon-yellow: hsl(45 95% 60%);
+
+  /* Shadows */
+  --shadow-glow-sm: 0 0 10px hsl(358 82% 51% / 0.1);
+  --shadow-glow-md: 0 0 24px hsl(358 82% 51% / 0.12);
+  --shadow-glow-lg: 0 0 40px hsl(358 82% 51% / 0.15);
+  --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.3), 0 4px 16px hsl(0 0% 0% / 0.2);
+  --shadow-elevated: 0 8px 32px hsl(0 0% 0% / 0.4), 0 2px 8px hsl(0 0% 0% / 0.2);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    background-image: radial-gradient(at 20% 80%, hsl(358 82% 51% / 0.04) 0%, transparent 50%), radial-gradient(at 80% 20%, hsl(358 60% 38% / 0.04) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  /* Premium card system */
+  .tech-card {
+    @apply relative rounded-xl border border-border/60 overflow-hidden bg-card;
+    box-shadow: var(--shadow-card);
+  }
+  .tech-card::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(180deg, hsl(358 82% 51% / 0.02), transparent 40%);
+  }
+  .tech-card:hover {
+    border-color: hsl(358 82% 51% / 0.2);
+    box-shadow: var(--shadow-card), var(--shadow-glow-sm);
+  }
+
+  /* Elevated card */
+  .tech-card-elevated {
+    @apply relative rounded-xl border border-border/60 overflow-hidden bg-card;
+    box-shadow: var(--shadow-elevated);
+  }
+  .tech-card-elevated::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(180deg, hsl(358 82% 51% / 0.02), transparent 40%);
+  }
+  .tech-card-elevated:hover {
+    border-color: hsl(358 82% 51% / 0.2);
+    box-shadow: var(--shadow-elevated), var(--shadow-glow-sm);
+  }
+
+  /* Stat card with top accent line */
+  .stat-card {
+    @apply relative rounded-xl border border-border/60 overflow-hidden bg-card;
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(180deg, hsl(358 82% 51% / 0.02), transparent 40%);
+  }
+  .stat-card:hover {
+    border-color: hsl(358 82% 51% / 0.2);
+    box-shadow: var(--shadow-card), var(--shadow-glow-sm);
+  }
+  .stat-card::after {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(358 82% 51% / 0.4), transparent);
+  }
+
+  /* Glowing active state */
+  .glow-active {
+    @apply border-primary/30;
+    box-shadow: var(--shadow-glow-md);
+    background: linear-gradient(180deg, hsl(358 82% 51% / 0.06), transparent);
+  }
+
+  /* Grid pattern overlay */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--color-border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--color-border) / 0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(358 82% 51%), hsl(358 60% 38%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Scanline effect for headers */
+  .scanline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-px;
+    background: linear-gradient(90deg, transparent, hsl(358 82% 51% / 0.3), transparent);
+  }
+
+  /* Neon dot indicator */
+  .neon-dot {
+    @apply w-2 h-2 rounded-full;
+    box-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+  }
+
+  /* Status bar glow */
+  .status-glow {
+    @apply relative;
+  }
+  .status-glow::before {
+    content: '';
+    @apply absolute -inset-1 rounded-xl opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, hsl(358 82% 51%), hsl(358 60% 38%));
+    filter: blur(20px);
+  }
+  .status-glow:hover::before {
+    opacity: 0.1;
+  }
+
+  /* Table styling */
+  .tech-table {
+    @apply w-full text-sm;
+  }
+  .tech-table thead tr {
+    @apply border-b border-border/60 bg-muted;
+  }
+  .tech-table thead th {
+    @apply text-left py-3 px-4 text-[11px] text-muted-foreground font-semibold uppercase tracking-wider;
+  }
+  .tech-table tbody tr {
+    @apply border-b border-border/30 transition-colors;
+  }
+  .tech-table tbody tr:hover {
+    @apply bg-muted/50;
+  }
+  .tech-table tbody td {
+    @apply py-3.5 px-4;
+  }
+
+  /* Badge styles */
+  .badge-active {
+    @apply text-[10px] px-2.5 py-1 rounded-full font-semibold tracking-wide;
+    background: hsl(155 75% 45% / 0.12);
+    color: hsl(155 75% 55%);
+    border: 1px solid hsl(155 75% 45% / 0.2);
+  }
+  .badge-paused {
+    @apply text-[10px] px-2.5 py-1 rounded-full font-semibold tracking-wide;
+    background: hsl(25 95% 55% / 0.12);
+    color: hsl(25 95% 65%);
+    border: 1px solid hsl(25 95% 55% / 0.2);
+  }
+  .badge-processing {
+    @apply text-[10px] px-2.5 py-1 rounded-full font-semibold tracking-wide;
+    background: hsl(358 82% 51% / 0.12);
+    color: hsl(358 82% 51%);
+    border: 1px solid hsl(358 82% 51% / 0.2);
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground;
+  }
+}
+
